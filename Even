@@ -1,0 +1,82 @@
+EXP_07
+Socket programming
+
+//create 1 folder and create 2 files in that folder, client.java and server.java
+
+
+//client:-
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class client{
+    public static void main(String[] args) throws Exception {
+        String ip = "localhost";
+        int port = 9999;
+        Socket s = new Socket(ip, port);
+
+        String str = "socket pro";
+
+        OutputStreamWriter os = new OutputStreamWriter(s.getOutputStream());
+        //PrintWriter out = new PrintWriter(os);
+
+        os.write(str);
+        os.flush();
+
+        s.close();
+    }
+}
+
+//server:-
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class server {
+    public static void main(String[] args)throws Exception {
+        
+        System.out.println("server is started");
+        ServerSocket ss = new ServerSocket(9999);
+
+        System.out.println("server is waiting for client request");
+        Socket s = ss.accept();
+        System.out.println("client connected");
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        String str = br.readLine();
+
+        System.out.println("client data : " + str);
+
+        ss.close();
+        s.close();
+    }
+}
+
+//EXP_08:-
+video link:- https://www.youtube.com/watch?v=krM9GprN6qA
+
+
+
+//EXP_09:-
+video_link:- https://www.youtube.com/watch?si=Wom96BFdRV8LFMG9&v=agUPsTod-Ns&feature=youtu.be
+
+
+
+//EXP_10:-
+video_link:- https://www.youtube.com/watch?v=8dvxCofR5Lc&t=19s
+
+commands for router config
+ena                                     //enable privilege
+config t
+int g0/0/0
+ip add 192.168.1.1 255.255.255.0       //assign ip to router
+no sh                                  //on ports
+end
+wr                                     //save
+config t
+enable secret password
+line vty 0 5
+login
+password 123456
